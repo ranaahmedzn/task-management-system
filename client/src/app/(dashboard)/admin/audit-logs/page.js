@@ -51,7 +51,7 @@ export default function AuditLogsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Audit Logs</h2>
+        <h2 className="text-2xl font-bold text-gray-900">System Audit History</h2>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

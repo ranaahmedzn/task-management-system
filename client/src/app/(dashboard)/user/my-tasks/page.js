@@ -1,20 +1,88 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "../../../../components/ui/Table";
+import Select from "../../../../components/form/Select";
+
+const initialTasks = [
+  {
+    id: 1,
+    title: "Update Project Documentation",
+    status: "In Progress",
+  },
+  {
+    id: 2,
+    title: "Fix Navigation Bug",
+    status: "To Do",
+  },
+  {
+    id: 3,
+    title: "Prepare Client Presentation",
+    status: "Completed",
+  },
+  {
+    id: 4,
+    title: "Code Review - PR #123",
+    status: "In Progress",
+  },
+];
+
+const statusOptions = [
+  { value: "To Do", label: "To Do" },
+  { value: "In Progress", label: "In Progress" },
+  { value: "Completed", label: "Completed" },
+];
+
 export default function MyTasksPage() {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  const handleStatusChange = (taskId, newStatus) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      )
+    );
+  };
+
   return (
-    <div className="p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">My Tasks</h2>
-      <div className="space-y-3">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="flex items-center gap-4 p-4 rounded-lg border border-gray-100 hover:border-brand-200 transition-colors">
-            <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-brand-500 focus:ring-brand-500" />
-            <div className="flex-1">
-              <p className="font-medium text-gray-800">Complete task number {i}</p>
-              <p className="text-sm text-gray-500">Due tomorrow</p>
-            </div>
-            <span className={`px-2 py-1 text-xs font-medium rounded ${i % 2 === 0 ? 'bg-orange-50 text-orange-600' : 'bg-brand-50 text-brand-600'}`}>
-              {i % 2 === 0 ? 'High' : 'Medium'}
-            </span>
-          </div>
-        ))}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">Personal Task List</h2>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell isHeader>Title</TableCell>
+              <TableCell isHeader className="w-48">Status</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tasks.map((task) => (
+              <TableRow key={task.id}>
+                <TableCell className="font-medium text-gray-900">
+                  {task.title}
+                </TableCell>
+                <TableCell className="w-1/3">
+                  <Select
+                    options={statusOptions}
+                    value={task.status}
+                    onChange={(value) => handleStatusChange(task.id, value)}
+                    className="h-9 py-1"
+                    parentClassName="max-w-[250px]"
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

@@ -1,31 +1,83 @@
+"use client";
+
+import React from "react";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "../../../../components/ui/Table";
+
+const initialUsers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Admin",
+    avatar: "JD",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "Editor",
+    avatar: "JS",
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    email: "mike@example.com",
+    role: "Viewer",
+    avatar: "MJ",
+  },
+  {
+    id: 4,
+    name: "Sarah Wilson",
+    email: "sarah@example.com",
+    role: "Editor",
+    avatar: "SW",
+  },
+];
+
 export default function UsersPage() {
   return (
-    <div className="p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">User Management</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="pb-4 font-semibold text-gray-600">User</th>
-              <th className="pb-4 font-semibold text-gray-600">Role</th>
-              <th className="pb-4 font-semibold text-gray-600">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[1, 2, 3].map((i) => (
-              <tr key={i} className="border-b border-gray-50 last:border-0">
-                <td className="py-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">User Management</h2>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell isHeader>User</TableCell>
+              <TableCell isHeader>Role</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {initialUsers.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-500">U{i}</div>
-                    <span className="font-medium text-gray-800">User {i}</span>
+                    <div className="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-sm">
+                      {user.avatar}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{user.name}</p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                    </div>
                   </div>
-                </td>
-                <td className="py-4 text-gray-600">Editor</td>
-                <td className="py-4"><span className="px-2 py-1 text-xs font-medium bg-green-50 text-green-600 rounded">Active</span></td>
-              </tr>
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    {user.role}
+                  </span>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

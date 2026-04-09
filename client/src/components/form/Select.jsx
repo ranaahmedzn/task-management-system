@@ -9,9 +9,10 @@ const Select = ({
   value,
   onChange,
   className = "",
+  parentClassName = "",
 }) => {
   return (
-    <div className="relative">
+    <div className={`relative ${parentClassName}`}>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
